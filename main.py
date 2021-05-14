@@ -1,4 +1,4 @@
-from os import path
+from os import path, listdir
 
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse, StreamingResponse
@@ -26,7 +26,10 @@ def audio():
 
 @app.get('/available_records')
 def available_records(request: Request):
-    files = ['a', 'b', 'c']
+    files = []
+    for filename in listdir("./records"):
+        if filename.endswith(".mp3") or filename.endswith(".wav"):
+            files.append(filename)
 
     return templates.TemplateResponse(
         "available_records.html.j2",
