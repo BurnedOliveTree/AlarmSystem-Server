@@ -29,9 +29,17 @@ def available_records(request: Request):
     files = []
     for filename in listdir("./records"):
         if filename.endswith(".mp3") or filename.endswith(".wav"):
-            files.append(filename)
+            files.append(File(filename))
 
     return templates.TemplateResponse(
         "available_records.html.j2",
         {"request": request, "files": files},
     )
+
+
+class File:
+    def __init__(self, filename: str):
+        x = filename.split('.')
+        self.filename: str = filename
+        self.name: str = x[0]
+        self.extension: str = x[1]
