@@ -24,8 +24,8 @@ def audio():
     return StreamingResponse(au, media_type="audio/wav")
 
 
-@app.get('/list_files')
-def list_files(request: Request):
+@app.get('/available_records')
+def available_records(request: Request):
     files = ['a', 'b', 'c']
 
     return templates.TemplateResponse(
