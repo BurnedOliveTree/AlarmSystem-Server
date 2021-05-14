@@ -24,6 +24,12 @@ def audio():
     return StreamingResponse(au, media_type="audio/wav")
 
 
+@app.get('/records/{name}')
+def audio(name: str):
+    au = open(f"records/{name}", mode='rb')
+    return StreamingResponse(au, media_type="audio/mpeg")
+
+
 @app.get('/available_records')
 def available_records(request: Request):
     files = []

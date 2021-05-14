@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="pl-PL">
 <head>
     <title>Available records</title>
 </head>
@@ -8,9 +8,13 @@
     <div class="container">
         <h1>Lista plików do odtworzenia:</h1>
         <ul>
-        {% for file in files %}
-            <li>{{file}}</li>
-        {% endfor %}
+            {% for file in files %}
+            <li>{{file.name}} ({{file.extension}}):</br>
+                <audio controls>
+                    <source src="/records/{{file.filename}}" type="audio/mpeg">
+                </audio>
+            </li>
+            {% endfor %}
         </ul>
     </div>
 </body>
