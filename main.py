@@ -4,7 +4,11 @@ from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse, StreamingResponse
 from fastapi.templating import Jinja2Templates
 
+from device_endpoints import device
+
 app = FastAPI()
+app.include_router(device, tags=["device-endpoints"])
+
 templates = Jinja2Templates(directory="templates")
 
 html = ''
