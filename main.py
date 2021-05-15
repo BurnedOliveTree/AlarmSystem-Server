@@ -5,9 +5,12 @@ from fastapi.responses import HTMLResponse, StreamingResponse
 from fastapi.templating import Jinja2Templates
 
 from device_endpoints import device
+from database import database
 
 app = FastAPI()
 app.include_router(device, tags=["device-endpoints"])
+app.include_router(database, tags=["database-endpoints"])
+
 
 templates = Jinja2Templates(directory="templates")
 
