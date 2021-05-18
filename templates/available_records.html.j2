@@ -11,7 +11,7 @@
             {% for file in files %}
             <li>{{file.name}} ({{file.extension}}):</br>
                 <audio controls>
-                    <source src="/records/{{file.filename}}" type="audio/mpeg">
+                    <source src="/records/{{file.filename}}" type="{{file.type}}">
                 </audio>
             </li>
             {% endfor %}

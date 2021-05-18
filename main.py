@@ -29,7 +29,11 @@ async def root():
 @app.get('/records/{name}')
 def audio(name: str):
     au = open(f"records/{name}", mode='rb')
-    return StreamingResponse(au, media_type="audio/mpeg")
+    extension = name.split('.')[-1]
+    if extension == 'mp3':
+        return StreamingResponse(au, media_type="audio/mpeg")
+    if extension == 'wav':
+        return StreamingResponse(au, media_type="audio/wav")
 
 
 @app.get('/available_records')
@@ -51,6 +55,10 @@ class File:
         self.filename: str = filename
         self.name: str = x[0]
         self.extension: str = x[1]
+        if self.extension == "mp3":
+            self.type: str = "audio/mpeg"
+        elif self.extension == "wav":
+            self.type: str = "audio/wav"
 
 
 if __name__ == "__main__":
