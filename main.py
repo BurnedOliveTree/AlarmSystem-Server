@@ -1,5 +1,6 @@
 from os import path, listdir
 
+import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse, StreamingResponse
 from fastapi.templating import Jinja2Templates
@@ -56,3 +57,7 @@ class File:
         self.filename: str = filename
         self.name: str = x[0]
         self.extension: str = x[1]
+
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="0.0.0.0", port=5000, log_level="info")
