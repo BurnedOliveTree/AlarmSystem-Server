@@ -24,3 +24,12 @@ async def db_report_alarm(device_id: int):
     database.connection.commit()
     alarm_id = int(insert.lastrowid)
     return alarm_id
+
+
+async def db_add_record(alarm_id: int, path_to_file: str):
+    insert = database.connection.execute(
+        "INSERT INTO RECORDS VALUES (NULL, ?, ?)", (path_to_file, alarm_id),
+    )
+    database.connection.commit()
+    record_id = int(insert.lastrowid)
+    return record_id
