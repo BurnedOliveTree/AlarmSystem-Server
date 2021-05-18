@@ -1,4 +1,5 @@
 import sqlite3
+from time import time
 
 from fastapi import APIRouter
 
@@ -14,3 +15,12 @@ async def startup():
 @database.on_event("shutdown")
 async def shutdown():
     database.connection.close()
+
+
+async def db_report_alarm(device_id: int):
+    insert = database.connection.execute(
+        "INSERT INTO ALARMS VALUES (NULL, ?, ?)", (int(time()), device_id),
+    )
+    database.connection.commit()
+    alarm_id = int(insert.lastrowid)
+    return alarm_id
