@@ -26,12 +26,6 @@ async def root():
     return HTMLResponse(html)
 
 
-@app.get('/audio')
-def audio():
-    au = open('file.wav', mode='rb')
-    return StreamingResponse(au, media_type="audio/wav")
-
-
 @app.get('/records/{name}')
 def audio(name: str):
     au = open(f"records/{name}", mode='rb')
