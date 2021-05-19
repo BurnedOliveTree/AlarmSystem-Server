@@ -1,29 +1,28 @@
-from os import path, listdir
+from os import listdir
+from time import time
 
 import uvicorn
 from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse, StreamingResponse
+from fastapi.responses import StreamingResponse
 from fastapi.templating import Jinja2Templates
 
+from routers.database import database, db_get_last_alarm_time
 from routers.device import device
-from routers.database import database
 
 app = FastAPI()
 app.include_router(device, tags=["device-endpoints"], prefix="/device")
 app.include_router(database, tags=["database-endpoints"], prefix="/db")
 
-
 templates = Jinja2Templates(directory="templates")
-
-html = ''
-if path.isfile('index.html'):
-    with open('index.html') as file:
-        html = file.read()
 
 
 @app.get("/")
-async def root():
-    return HTMLResponse(html)
+async def root(request: Request):
+    alarm_recently = await check_if_alarm_recently()
+    return templates.TemplateResponse(
+        "index.html.j2",
+        {"request": request, "alarm": alarm_recently},
+    )
 
 
 @app.get('/records/{name}')
