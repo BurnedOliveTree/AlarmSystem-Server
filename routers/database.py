@@ -33,3 +33,10 @@ async def db_add_record(alarm_id: int, path_to_file: str):
     database.connection.commit()
     record_id = int(insert.lastrowid)
     return record_id
+
+
+async def db_get_last_alarm_time():
+    response = database.connection.execute(
+        "SELECT occur_time FROM ALARMS ORDER BY id DESC",
+    ).fetchone()
+    return response[0]

@@ -49,6 +49,15 @@ def available_records(request: Request):
     )
 
 
+async def check_if_alarm_recently():
+    now = int(time())
+    then = await db_get_last_alarm_time()
+    difference = 10 * 60  # 10 minutes
+    if now - then <= difference:
+        return True
+    return False
+
+
 class File:
     def __init__(self, filename: str):
         x = filename.split('.')
