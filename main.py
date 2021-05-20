@@ -4,6 +4,7 @@ from time import time
 import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.responses import StreamingResponse
+from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 from routers.database import database, db_get_last_alarm_time
@@ -12,6 +13,7 @@ from routers.device import device
 app = FastAPI()
 app.include_router(device, tags=["device-endpoints"], prefix="/device")
 app.include_router(database, tags=["database-endpoints"], prefix="/db")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 templates = Jinja2Templates(directory="templates")
 
