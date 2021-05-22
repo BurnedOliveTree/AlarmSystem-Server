@@ -40,3 +40,29 @@ async def db_get_last_alarm_time():
         "SELECT occur_time FROM ALARMS ORDER BY id DESC",
     ).fetchone()
     return response[0]
+
+
+async def db_get_alarms(time_l: int = None, time_r: int = None):
+    if time_l is None:
+        time_l = 0
+    if time_r is None:
+        time_r = int(time())
+
+    response = database.connection.execute(
+        """
+        SELECT id, occur_time, datetime(occur_time, 'unixepoch'), device FROM ALARMS
+        WHERE occur_time BETWEEN (?) AND (?)
+        ORDER BY occur_time DESC
+        """, (time_l, time_r),
+    ).fetchall()
+
+    alarms = [Alarm(index, occur_time, human_time, device) for index, occur_time, human_time, device in response]
+    return alarms
+
+
+class Alarm:
+    def __init__(self, index, occur_time, human_time, device):
+        self.index = index
+        self.occur_time = occur_time
+        self.human_time = human_time
+        self.device = device
