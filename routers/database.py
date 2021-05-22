@@ -75,10 +75,10 @@ async def db_get_records_for_alarm(alarm_id: int = 12):
 
 class Alarm:
     def __init__(self, index, occur_time, human_time, device):
-        self.index = index
-        self.occur_time = occur_time
-        self.human_time = human_time
-        self.device = device
+        self.index: int = index
+        self.occur_time: int = occur_time
+        self.human_time: str = human_time
+        self.device: int = device
         self.records: list = []
 
     async def get_records(self):
