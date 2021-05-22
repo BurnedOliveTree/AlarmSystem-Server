@@ -23,3 +23,8 @@ async def create_upload_file(alarm_id: int, record: UploadFile = File(...)):
 async def report_alarm(device_id: int):
     alarm_id: int = await db_report_alarm(device_id)
     return {"id": alarm_id}
+
+
+@device.get("/update_settings")
+async def update_settings(device_id: int, is_armed: bool, recording_time: int):
+    return [device_id, is_armed, recording_time]

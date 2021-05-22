@@ -37,6 +37,15 @@ async def history(request: Request):
     )
 
 
+@app.get("/settings")
+async def settings(request: Request):
+    settings
+    return templates.TemplateResponse(
+        "settings.html.j2",
+        {"request": request},
+    )
+
+
 @app.get('/records/{name}')
 def audio(name: str):
     au = open(f"records/{name}", mode='rb')
