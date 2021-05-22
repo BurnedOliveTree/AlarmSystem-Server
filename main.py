@@ -7,7 +7,7 @@ from fastapi.responses import StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-from routers.database import database, db_get_last_alarm_time
+from routers.database import database, db_get_last_alarm_time, db_get_alarms
 from routers.device import device
 
 app = FastAPI()
@@ -24,6 +24,15 @@ async def root(request: Request):
     return templates.TemplateResponse(
         "index.html.j2",
         {"request": request, "alarm": alarm_recently},
+    )
+
+
+@app.get("/history")
+async def history(request: Request):
+    alarms = await db_get_alarms()
+    return templates.TemplateResponse(
+        "history.html.j2",
+        {"request": request, "alarms": alarms},
     )
 
 

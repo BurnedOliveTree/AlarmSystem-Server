@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+    <head>
+        <title>Alarm System | History</title>
+        <link rel="stylesheet" href="{{ url_for('static', path='w3.css') }}">
+    </head>
+    <body class="w3-grey">
+        <div class="w3-bar w3-border w3-dark-grey">
+          <a href="/"           class="w3-bar-item w3-button">Home</a>
+          <a href="/history"    class="w3-bar-item w3-button w3-green">History</a>
+          <a href="/settings"   class="w3-bar-item w3-button">Settings</a>
+          <a href="#"           class="w3-bar-item w3-button w3-red w3-right">Logout</a>
+        </div>
+        <div style="height: 95vh;" class="w3-bar">
+            <div class="w3-container w3-center w3-display-middle">
+                <table class="w3-center w3-table w3-hoverable w3-card-4">
+                    <tr><th>ID</th><th>Time (UTC)</th><th>Records</th></tr>
+                    {% for alarm in alarms %}
+                    <tr class="w3-hover-yellow">
+                        <td>{{alarm.index}}</td>
+                        <td>{{alarm.human_time}}</td>
+                        <td>
+                            <audio controls>
+                                <source src="/records/35 Gabriel flyttar in.mp3" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
