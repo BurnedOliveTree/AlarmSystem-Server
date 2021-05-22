@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <html lang="pl-PL">
-    <head>
-        <title>Alarm System | Home</title>
-        <link rel="stylesheet" href="{{ url_for('static', path='w3.css') }}">
-    </head>
-    <body class="w3-ios-background">
-        <div class="w3-bar w3-border w3-dark-grey">
-          <a href="/"           class="w3-bar-item w3-button w3-green">Home</a>
-          <a href="/history"    class="w3-bar-item w3-button">History</a>
-          <a href="/settings"   class="w3-bar-item w3-button">Settings</a>
-          <a href="#"           class="w3-bar-item w3-button w3-red w3-right">Logout</a>
-        </div>
-        {% if alarm %}
-        <div style="height: 95vh;" class="w3-bar w3-pale-red">
-          <div class="w3-display-middle w3-center">
-              <h1 class="w3-text-red">There has been an alarm!</h1>
-              <p>Alarm has been detected in last 10 minutes.</p>
-          </div>
-        </div>
-        {% else %}
-        <div style="height: 95vh;" class="w3-bar w3-pale-green">
-          <div class="w3-display-middle w3-center">
-              <h1 class="w3-text-green">Everything is OK!</h1>
-              <p>No alarm has been reported recently.</p>
-          </div>
-        </div>
-        {% endif %}
-    </body>
+<head>
+    <title>Alarm System | Home</title>
+    <link href="{{ url_for('static', path='w3.css') }}" rel="stylesheet">
+</head>
+<body class="w3-ios-background">
+<div class="w3-bar w3-border w3-dark-grey">
+    <a class="w3-bar-item w3-button w3-green" href="/">Home</a>
+    <a class="w3-bar-item w3-button" href="/history">History</a>
+    <a class="w3-bar-item w3-button" href="/settings">Settings</a>
+    <a class="w3-bar-item w3-button w3-red w3-right" href="#">Logout</a>
+</div>
+{% if alarm %}
+<div class="w3-bar w3-pale-red" style="height: 95vh;">
+    <div class="w3-display-middle w3-center">
+        <h1 class="w3-text-red">There has been an alarm!</h1>
+        <p>Alarm has been detected in last 10 minutes.</p>
+    </div>
+</div>
+{% else %}
+<div class="w3-bar w3-pale-green" style="height: 95vh;">
+    <div class="w3-display-middle w3-center">
+        <h1 class="w3-text-green">Everything is OK!</h1>
+        <p>No alarm has been reported recently.</p>
+    </div>
+</div>
+{% endif %}
+</body>
 </html>

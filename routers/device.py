@@ -1,5 +1,7 @@
-from fastapi import APIRouter, Request, Response, status, File, UploadFile
 from shutil import copyfileobj
+
+from fastapi import APIRouter, status, File, UploadFile
+
 from routers.database import db_report_alarm, db_add_record
 
 device = APIRouter()
