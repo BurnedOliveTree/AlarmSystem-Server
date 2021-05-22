@@ -97,13 +97,16 @@ class Record:
 async def db_get_device_settings(device_id: int):
     response = database.connection.execute(
         f"""
-        SELECT id, name, is_armed, recording_time* FROM DEVICES
+        SELECT id, name, is_armed, recording_time FROM DEVICES
         WHERE id = {device_id}
         """
     ).fetchone()
 
-    index, name, is_armed, recording_time = response
-    settings = {"device_id": index, "name": name, "is_armed": is_armed, "recording_time": recording_time}
+    try:
+        index, name, is_armed, recording_time = response
+    except TypeError:
+        index, name, is_armed, recording_time = None, None, None, None
+    settings = {"device_id": index, "name": name, "is_armed": bool(is_armed), "recording_time": recording_time}
     return settings
 
 
