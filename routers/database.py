@@ -60,7 +60,7 @@ async def db_get_alarms(time_l: int = None, time_r: int = None):
     return alarms
 
 
-async def db_get_records_for_alarm(alarm_id: int = 12):
+async def db_get_records_for_alarm(alarm_id: int):
     response = database.connection.execute(
         f"""
         SELECT id, path, alarm_id FROM RECORDS
