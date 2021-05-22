@@ -30,6 +30,8 @@ async def root(request: Request):
 @app.get("/history")
 async def history(request: Request):
     alarms = await db_get_alarms()
+    for alarm in alarms:
+        await alarm.get_records()
     return templates.TemplateResponse(
         "history.html.j2",
         {"request": request, "alarms": alarms},

@@ -60,9 +60,35 @@ async def db_get_alarms(time_l: int = None, time_r: int = None):
     return alarms
 
 
+async def db_get_records_for_alarm(alarm_id: int = 12):
+    response = database.connection.execute(
+        f"""
+        SELECT id, path, alarm_id FROM RECORDS
+        WHERE alarm_id = {alarm_id}
+        ORDER BY id
+        """
+    ).fetchall()
+
+    records = [Record(index, path, alarm_id) for index, path, alarm_id in response]
+    return records
+
+
 class Alarm:
     def __init__(self, index, occur_time, human_time, device):
         self.index = index
         self.occur_time = occur_time
         self.human_time = human_time
         self.device = device
+        self.records: list = []
+
+    async def get_records(self):
+        self.records = await db_get_records_for_alarm(self.index)
+
+
+class Record:
+    def __init__(self, index, path, alarm_id):
+        self.index: int = index
+        self.path: str = path
+        self.alarm_id: int = alarm_id
+        self.extension = self.path.split(".")[-1]
+        self.type = "audio/mpeg" if self.extension == "mp3" else "audio/wav"
