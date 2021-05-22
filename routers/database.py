@@ -92,3 +92,16 @@ class Record:
         self.alarm_id: int = alarm_id
         self.extension = self.path.split(".")[-1]
         self.type = "audio/mpeg" if self.extension == "mp3" else "audio/wav"
+
+
+async def db_get_device_settings(device_id: int):
+    response = database.connection.execute(
+        f"""
+        SELECT id, name, is_armed, recording_time* FROM DEVICES
+        WHERE id = {device_id}
+        """
+    ).fetchone()
+
+    index, name, is_armed, recording_time = response
+    settings = {"device_id": index, "name": name, "is_armed": is_armed, "recording_time": recording_time}
+    return settings
