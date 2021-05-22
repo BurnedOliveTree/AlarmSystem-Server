@@ -4,15 +4,15 @@
     <title>Alarm System | History</title>
     <link href="{{ url_for('static', path='w3.css') }}" rel="stylesheet">
 </head>
-<body class="w3-grey">
+<body class="w3-ios-background">
 <div class="w3-bar w3-border w3-dark-grey">
     <a class="w3-bar-item w3-button" href="/">Home</a>
     <a class="w3-bar-item w3-button w3-green" href="/history">History</a>
     <a class="w3-bar-item w3-button" href="/settings">Settings</a>
     <a class="w3-bar-item w3-button w3-red w3-right" href="#">Logout</a>
 </div>
-<div class="w3-bar" style="height: 95vh;">
-    <div class="w3-container w3-center w3-display-middle">
+<div class="w3-bar">
+    <div style="width: 70%" class="w3-container w3-center">
         <table class="w3-center w3-table w3-hoverable w3-card-4">
             <tr>
                 <th>ID</th>
@@ -20,13 +20,15 @@
                 <th>Records</th>
             </tr>
             {% for alarm in alarms %}
-            <tr class="w3-hover-yellow">
+            <tr class="w3-hover-light-blue">
                 <td>{{alarm.index}}</td>
                 <td>{{alarm.human_time}}</td>
                 <td>
-                    <audio controls>
-                        <source src="/records/35 Gabriel flyttar in.mp3" type="audio/mpeg">
-                    </audio>
+                    {% for record in alarm.records %}
+                        <audio controls>
+                            <source src="/{{record.path}}" type="{{record.type}}">
+                        </audio>
+                    {% endfor %}
                 </td>
             </tr>
             {% endfor %}
