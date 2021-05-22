@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Alarm System | History</title>
+    <link href="{{ url_for('static', path='w3.css') }}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+    <script>
+        function myFunction(id) {
+            const x = document.getElementById(id);
+            if (x.className.indexOf("w3-show") === -1) {
+                x.className += " w3-show";
+            } else {
+                x.className = x.className.replace(" w3-show", "");
+            }
+        }
+    </script>
+</head>
+
+<body class="w3-ios-background">
+<div class="w3-bar w3-border w3-dark-grey">
+    <a class="w3-bar-item w3-button" href="/">Home</a>
+    <a class="w3-bar-item w3-button w3-green" href="/history">History</a>
+    <a class="w3-bar-item w3-button" href="/settings">Settings</a>
+    <a class="w3-bar-item w3-button w3-red w3-right" style="opacity: 0.6; cursor: not-allowed;">Logout</a>
+</div>
+<div class="w3-bar">
+    <div class="w3-container w3-table w3-card-4">
+        <div class="w3-col    m2 l3">&nbsp;</div>
+        <div class="w3-col s1 m1 l1 w3-center">
+            <h1 class="w3-hide-small">ID</h1>
+            <h1 class="w3-hide-medium w3-hide-large" style="font-size: medium">ID</h1></div>
+        <div class="w3-col s9 m5 l3 w3-center">
+            <h1 class="w3-hide-small">Time (UTC)</h1>
+            <h1 class="w3-hide-medium w3-hide-large" style="font-size: medium">Time (UTC)</h1></div>
+        <div class="w3-col s2 m2 l2 w3-center">
+            <h1 class="w3-hide-small">Records</h1>
+            <h1 class="w3-hide-medium w3-hide-large" style="font-size: medium">Records</h1></div>
+        <div class="w3-col    m2 l3">&nbsp;</div>
+
+        {% for alarm in alarms %}
+            <div class="w3-row">
+                <div onclick="myFunction('Alarm-{{alarm.index}}')" class="w3-button w3-block w3-left-align">
+                    <div class="w3-col    m2 l3">&nbsp;</div>
+                    <div class="w3-col s1 m1 l1 w3-center">{{alarm.index}}</div>
+                    <div class="w3-col s9 m5 l3">{{alarm.human_time}}</div>
+                    <div class="w3-col s2 m2 l2 w3-center">
+                        <i class="material-icons" style="font-size:36px">
+                            {% if alarm.records %} expand_more
+                            {% else %} error_outline
+                            {% endif %}</i>
+                    </div>
+                    <div class="w3-col    m2 l3">&nbsp;</div>
+                </div>
+                {% if alarm.records %}
+                    <div id="Alarm-{{alarm.index}}" class="w3-container w3-hide w3-center">
+                        {% for record in alarm.records %}
+                            <audio controls>
+                                <source src="/{{record.path}}" type="{{record.type}}">
+                            </audio>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+</body>
+</html>
