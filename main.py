@@ -65,17 +65,5 @@ async def check_if_alarm_recently():
     return False
 
 
-class File:
-    def __init__(self, filename: str):
-        x = filename.split('.')
-        self.filename: str = filename
-        self.name: str = x[0]
-        self.extension: str = x[1]
-        if self.extension == "mp3":
-            self.type: str = "audio/mpeg"
-        elif self.extension == "wav":
-            self.type: str = "audio/wav"
-
-
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=5000, log_level="info")
