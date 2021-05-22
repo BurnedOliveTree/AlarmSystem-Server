@@ -3,7 +3,11 @@
 <head>
     <title>Alarm System | Home</title>
     <link href="{{ url_for('static', path='w3.css') }}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+
 </head>
+
 <body class="w3-ios-background">
 <div class="w3-bar w3-border w3-dark-grey">
     <a class="w3-bar-item w3-button w3-green" href="/">Home</a>
@@ -15,6 +19,7 @@
 <div class="w3-bar w3-pale-red" style="height: 95vh;">
     <div class="w3-display-middle w3-center">
         <h1 class="w3-text-red">There has been an alarm!</h1>
+        <i class="material-icons w3-text-red" style="font-size:96px;">warning</i>
         <p>Alarm has been detected in last 10 minutes.</p>
     </div>
 </div>
@@ -22,6 +27,7 @@
 <div class="w3-bar w3-pale-green" style="height: 95vh;">
     <div class="w3-display-middle w3-center">
         <h1 class="w3-text-green">Everything is OK!</h1>
+        <i class="material-icons w3-text-green" style="font-size:96px;">mood</i>
         <p>No alarm has been reported recently.</p>
     </div>
 </div>
