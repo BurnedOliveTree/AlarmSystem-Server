@@ -42,7 +42,7 @@ async def settings(request: Request, device_id: int = 1):
     device_settings = await db_get_device_settings(device_id)
     return templates.TemplateResponse(
         "settings.html.j2",
-        {"request": request, "device_settings": device_settings},
+        {"request": request, "settings": device_settings},
     )
 
 
