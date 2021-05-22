@@ -1,8 +1,9 @@
 from shutil import copyfileobj
 
 from fastapi import APIRouter, status, File, UploadFile
+from fastapi.responses import RedirectResponse
 
-from routers.database import db_report_alarm, db_add_record
+from routers.database import db_report_alarm, db_add_record, db_update_device_settings
 
 device = APIRouter()
 device.__name__ = "DeviceEndpoints"
@@ -26,5 +27,7 @@ async def report_alarm(device_id: int):
 
 
 @device.get("/update_settings")
-async def update_settings(device_id: int, is_armed: bool, recording_time: int):
-    return [device_id, is_armed, recording_time]
+async def update_settings(device_id: int, name: str, is_armed: bool, recording_time: int):
+    await db_update_device_settings(device_id, name, is_armed, recording_time)
+    return RedirectResponse(f"/settings?device_id={device_id}&name={name}&is_armed={is_armed}&recording_time={recording_time}",
+                            status_code=status.HTTP_303_SEE_OTHER)

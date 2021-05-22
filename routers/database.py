@@ -105,3 +105,18 @@ async def db_get_device_settings(device_id: int):
     index, name, is_armed, recording_time = response
     settings = {"device_id": index, "name": name, "is_armed": is_armed, "recording_time": recording_time}
     return settings
+
+
+async def db_update_device_settings(device_id: int, name: str, is_armed: bool, recording_time: int):
+    is_armed_int = await bool_to_int(is_armed)
+    database.connection.execute(
+        f"""
+        UPDATE DEVICES SET name = ?, is_armed = ?, recording_time = ? 
+        WHERE id = {device_id}
+        """, (name, is_armed_int, recording_time),
+    )
+    database.connection.commit()
+
+
+async def bool_to_int(value):
+    return 1 if value else 0
