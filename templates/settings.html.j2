@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Alarm System | Settings</title>
+    <link href="{{ url_for('static', path='w3.css') }}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+
+<body class="w3-ios-background">
+<div class="w3-bar w3-border w3-dark-grey">
+    <a class="w3-bar-item w3-button" href="/">Home</a>
+    <a class="w3-bar-item w3-button" href="/history">History</a>
+    <a class="w3-bar-item w3-button w3-green" href="/settings">Settings</a>
+    <a class="w3-bar-item w3-button w3-red w3-right" style="opacity: 0.6; cursor: not-allowed;">Logout</a>
+</div>
+<div class="w3-bar">
+    <form class="w3-display-middle" action="/device/update_settings">
+        <label for="device_id">Device number:</label>
+        <input required class="w3-input" type="number" id="device_id" name="device_id" min="1" max="1"
+               value="{{settings['device_id']}}">
+        <br>
+
+        <label>Device name</label>
+        <input required class="w3-input" type="text" name="name" value="{{settings['name']}}">
+
+        <br>
+        {% if settings["is_armed"] %}
+            <input class="w3-radio" required type="radio" id="armed_1" name="is_armed" value="True" checked>
+                <label for="armed_1">Arm alarm</label><br>
+            <input class="w3-radio" required type="radio" id="disarmed_1" name="is_armed" value="False">
+                <label for="disarmed_1">Disarm alarm</label><br>
+        {% else %}
+            <input class="w3-radio" required type="radio" id="armed_2" name="is_armed" value="True">
+                <label for="armed_2">Arm alarm</label><br>
+            <input class="w3-radio" required type="radio" id="disarmed_2" name="is_armed" value="False" checked>
+                <label for="disarmed_2">Disarm alarm</label><br>
+        {% endif %}
+        <br>
+
+        <label for="recording_time">Recording time (seconds):</label>
+        <input required class="w3-input" type="number" id="recording_time" name="recording_time" min="10" max="600"
+               value="{{settings['recording_time']}}" step="5">
+
+        <br>
+
+        <input type="submit" value="Update settings">
+    </form>
+</div>
+</body>
+</html>
