@@ -4,12 +4,12 @@
         <title>Alarm System | Home</title>
         <link rel="stylesheet" href="{{ url_for('static', path='w3.css') }}">
     </head>
-    <body class="w3-grey">
+    <body class="w3-ios-background">
         <div class="w3-bar w3-border w3-dark-grey">
-          <a href="/" class="w3-bar-item w3-mobile w3-button w3-green">Home</a>
-          <a href="/history" class="w3-bar-item w3-mobile w3-button">History</a>
-          <a href="/settings" class="w3-bar-item w3-mobile w3-button">Settings</a>
-          <a href="#" class="w3-bar-item w3-mobile w3-red w3-right">Logout</a>
+          <a href="/"           class="w3-bar-item w3-button w3-green">Home</a>
+          <a href="/history"    class="w3-bar-item w3-button">History</a>
+          <a href="/settings"   class="w3-bar-item w3-button">Settings</a>
+          <a href="#"           class="w3-bar-item w3-button w3-red w3-right">Logout</a>
         </div>
         {% if alarm %}
         <div style="height: 95vh;" class="w3-bar w3-pale-red">
