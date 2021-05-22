@@ -1,4 +1,3 @@
-from os import listdir
 from time import time
 
 import uvicorn
@@ -46,19 +45,6 @@ def audio(name: str):
         return StreamingResponse(au, media_type="audio/mpeg")
     if extension == 'wav':
         return StreamingResponse(au, media_type="audio/wav")
-
-
-@app.get('/available_records')
-def available_records(request: Request):
-    files = []
-    for filename in listdir("./records"):
-        if filename.endswith(".mp3") or filename.endswith(".wav"):
-            files.append(File(filename))
-
-    return templates.TemplateResponse(
-        "available_records.html.j2",
-        {"request": request, "files": files},
-    )
 
 
 async def check_if_alarm_recently():
