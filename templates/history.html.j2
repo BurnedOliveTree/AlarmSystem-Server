@@ -49,8 +49,8 @@
                 <h1 class="w3-hide-small w3-hide-medium">Records</h1>
                 <h2 class="w3-hide-small w3-hide-large">Records</h2>
                 <h4 class="w3-hide-medium w3-hide-large">Records</h4>
+            </div>
             <div class="w3-col    m1 l2">&nbsp;</div>
-        </div>
         {% for alarm in alarms %}
             <div class="w3-row">
                 <div onclick="myFunction('Alarm-{{alarm.index}}')" class="w3-button w3-block w3-left-align">
@@ -80,6 +80,7 @@
                 {% endif %}
             </div>
         {% endfor %}
+        </div>
     </div>
 </div>
 </body>
