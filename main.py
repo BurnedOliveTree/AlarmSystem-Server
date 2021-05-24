@@ -56,6 +56,13 @@ def audio(name: str):
         return StreamingResponse(au, media_type="audio/wav")
 
 
+@app.get('/alarm_recently')
+async def alarm_recently():
+    alarm_recently_bool = await check_if_alarm_recently()
+    json = {"alarm_recently": alarm_recently_bool}
+    return json
+
+
 async def check_if_alarm_recently():
     now = int(time())
     then = await db_get_last_alarm_time()
