@@ -1,6 +1,7 @@
 import asyncio
 import json
 from shutil import copyfileobj
+from datetime import datetime
 
 from fastapi import APIRouter, status, File, UploadFile
 from fastapi.responses import RedirectResponse
@@ -26,6 +27,7 @@ async def create_upload_file(alarm_id: int, record: UploadFile = File(...)):
 @device.post("/report-alarm", status_code=status.HTTP_201_CREATED)
 async def report_alarm(device_id: int):
     alarm_id: int = await db_report_alarm(device_id)
+    print(f'<time>  Alarm report received: {datetime.now().time()}')
     return {"id": alarm_id}
 
 
@@ -59,6 +61,7 @@ async def settings_sender(reader, writer):
     writer.write(byte_data)
     await writer.drain()
 
+    print(f'<time>  New settings send: {datetime.now().time()}')
     print("Device received data")
     writer.close()
 
