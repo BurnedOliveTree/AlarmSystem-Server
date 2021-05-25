@@ -24,11 +24,7 @@
                         throw err
                     });
 
-                console.log("Here")
-                if (output.alarm_recently === true) {
-                    console.log("and there")
-                    location.reload();
-                }
+                if (output.alarm_recently === true) { location.reload(); }
                 await sleep(30000);
             } while (i++ <= 30);
             alert("Stopped refreshing page automatically.\nPlease reload it manually.")
