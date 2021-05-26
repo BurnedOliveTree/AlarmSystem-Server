@@ -19,10 +19,10 @@ templates = Jinja2Templates(directory="templates")
 
 @app.get("/")
 async def root(request: Request):
-    alarm_recently = await check_if_alarm_recently()
+    alarm_recently_bool = await check_if_alarm_recently()
     return templates.TemplateResponse(
         "index.html.j2",
-        {"request": request, "alarm": alarm_recently},
+        {"request": request, "alarm": alarm_recently_bool},
     )
 
 
